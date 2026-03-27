@@ -1,0 +1,37 @@
+title: Discovery of Sensitive Files and Credentials
+id: 7d1e8b2a-3c4f-4e1a-9d2e-1b4c5a8d3e2c
+status: experimental
+description: Detects attempts to find private keys, configuration files, or sensitive information in bash history.
+author: Oskar
+date: 2026-03-27
+tags:
+    - attack.discovery
+    - attack.t1552.001
+    - attack.t1083
+logsource:
+    product: linux
+    service: bash_history
+detection:
+    selection_files:
+        process.command_line|contains:
+            - '.ssh/'
+            - 'id_rsa'
+            - 'id_ecdsa'
+            - 'id_ed25519'
+            - '.bash_history'
+            - '/etc/shadow'
+            - '/etc/passwd'
+            - '.aws/credentials'
+            - 'config.php'
+            - 'settings.py'
+            - 'web.config'
+    selection_tools:
+        process.command_line|contains:
+            - 'grep'
+            - 'find'
+            - 'cat'
+            - 'locate'
+    condition: selection_files and selection_tools
+falsepositives:
+    - System administrator performing manual backups or configuration audits
+level: high
