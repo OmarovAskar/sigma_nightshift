@@ -14,23 +14,23 @@ logsource:
 detection:
     selection_files:
         process.command_line|contains:
-            - '.ssh/'
-            - 'id_rsa'
-            - 'id_ecdsa'
-            - 'id_ed25519'
-            - '.bash_history'
-            - '/etc/shadow'
-            - '/etc/passwd'
-            - '.aws/credentials'
-            - 'config.php'
-            - 'settings.py'
-            - 'web.config'
+            - .ssh/
+            - id_rsa
+            - id_ecdsa
+            - id_ed25519
+            - .bash_history
+            - /etc/shadow
+            - /etc/passwd
+            - .aws/credentials
+            - config.php
+            - settings.py
+            - web.config
     selection_tools:
         process.command_line|contains:
-            - 'grep'
-            - 'find'
-            - 'cat'
-            - 'locate'
+            - grep
+            - find
+            - cat
+            - locate
     condition: selection_files and selection_tools
 falsepositives:
     - System administrator performing manual backups or configuration audits
